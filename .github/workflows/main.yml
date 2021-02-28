@@ -13,7 +13,7 @@ jobs:
       - uses: dcodeIO/setup-node-nvm@master
         with:
           node-version: node
-      - run: npm install
+      - run: npm install --legacy-peer-deps
       - run: npm run build
       - uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
