@@ -4,9 +4,11 @@ import Confetti from 'react-confetti'
 var {useState} = React
 
 export function Counter() {
+  console.log('y1:')
   var [coords, setCoords] = useState(undefined)
   var [pieces, setPieces] = useState(0)
   var [count, setCount] = useState(0)
+  console.log('y2:', coords, pieces, count)
 
   return (
     <>
@@ -28,6 +30,7 @@ export function Counter() {
   )
 
   function onClick(ev) {
+    console.log('y3:', ev)
     setCount(count + 1)
     setPieces(pieces + 24)
     setCoords({x: ev.clientX, y: ev.clientY})
