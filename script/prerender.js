@@ -86,7 +86,7 @@ async function main() {
 <meta content=@wooorm name=twitter:creator>
 <link href=data:image/x-icon;, rel="icon shortcut" type=image/x-icon>
 <div id=root>${result}</div>
-<img id=payload decoding=async loading=eager alt src="data:image/png;base64,${b64}">
+<img id=payload alt src="data:image/png;base64,${b64}">
 <script src=index.js></script>`
   )
 
