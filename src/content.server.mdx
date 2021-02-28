@@ -1,0 +1,149 @@
+import {Counter} from './counter.client.js'
+import {Phyllotaxis} from './phyllotaxis.server.js'
+
+export default function wrapper({components, ...props}) {
+  return <main {...props} />
+}
+
+# React server components + MDX
+
+Hi! 👋
+This is a demo of [React server components][sc] with MDX to show that they can
+work together.
+The source code is [on GitHub][gh].
+
+What you’re reading right now is <code>\<[Content][] \/\></code>, an MDX file as
+a component!
+
+## What?
+
+Server components can be boiled down to doing the work on a server and
+being very smart about which components and data are sent to the client.
+It’s a rather seamless authoring experience.
+This demo is compiled ahead of time so “server” can also be a build step.
+MDX is a mix between markdown and JSX.
+It’s a great way for combining content with components.
+
+For an example, what you’re reading here is MDX as a server component (so it’s
+compiled on the server), but it includes dynamic client components.
+Try it out:
+
+<Counter />.
+
+The above <code>\<[Counter][] \/\></code> is a client component: it’s sent to
+the client.
+As this whole MDX document is a server component, it can include more server
+components.
+Here is an example of a [phyllotaxis][phyllotaxis-wiki] as a server component,
+<code>\<[Phyllotaxis][] \/\></code>, which is static:
+
+<Phyllotaxis size={352} length={256} step={10} radius={3} />
+
+Whether an `.mdx` (or `.js`) file is a *server* or *client* component is
+defined by their extension (respectively, `xxx.server.{js,mdx}` or
+`xxx.client.{js,mdx}`).
+You can open your dev tools to see that only the `<Counter />` and the embedded
+`<Confetti />` are sent to clients (in `0.index.js`).
+The rest is compiled away.
+
+## Why?
+
+React server components run on the server and have zero impact on bundle size.
+They seamlessly integrate with client components.
+The hot sauce™ (as in, tooling) that combines them results in a perfect hybrid
+blend.
+MDX is nice on top for more content heavy things, because it’s so much nicer to
+write `*emphasis*` than `<em>emphasis</em>` for pages such as this one.
+
+## How?
+
+First, `react-server-dom-webpack` needs to be [patched][] to treat MDX files the
+way it treats JS files.
+Hopefully the React team will allow `.mdx` or make extensions configurable.
+
+The second step makes sure you can require/import `.mdx` files in Node and
+depends on whether you’re using CJS or ESM.
+In CJS (which has `require` calls, *discouraged*), add a
+<code>require('[xdm/register.cjs][register]')</code> call somewhere in your
+server next to
+where you’re doing `require('react-server-dom-webpack/node-register')`.
+In ESM (*recommended*), import [`xdm/esm-loader.js`][loader],
+`@node-loader/babel`, and `react-server-dom-webpack/node-loader`, then combine
+them in a `node-loader.config.js` [like so][node-loader], and finally run your
+server with `--experimental-loader @node-loader/core`.
+
+Lastly, make sure webpack can bundle `.mdx` files.
+Add something along the lines of <code>\{test: /\\.mdx$/, use: '[xdm/webpack.cjs][webpack]'}</code> to
+`module.rules` in the webpack config.
+
+## A few more things!
+
+This demo show RSC + MDX but there’s more too it.
+
+[React notes][scd] requires a whole server, whereas this demo is generated
+in a build step, so that it can be deployed on GitHub pages, Netlify, or other
+places.
+
+The client in React notes figures out what components and data it needs and
+then requests them from the server.
+This demo instead embeds the needed data into the HTML to save a roundtrip
+(it’s embedded as a compressed PNG 🤯 which would typically be hidden but
+it’s shown for fun at the bottom)!
+
+React notes sends an empty HTML shell to the client, this demo instead renders
+the app and sends a full HTML page, which is then hydrated with that compressed
+app-as-a-PNG, so that users (even those without JavaScript on) can immediately
+start reading. 🕚 ⬅️ 🚙 💨
+
+Finally, React notes is CJS whereas this is ESM.
+
+## When?
+
+Server components are very much in the **danger zone**.
+They are not ready for adoption.
+You shouldn’t use this!
+This demo is also SSG and ESM only, making it all the more danger zone.
+As for [`xdm`][xdm], that’s stable!
+
+## Who?
+
+Hacked together by [**@wooorm**][wooorm].
+Thanks to [**@gaearon**][gaearon] for the tips.
+
+Fork me on [GitHub][gh].
+
+P.S., here’s that image mentioned before.
+It’s *also* this whole page: it’s the app encoded as a compressed PNG so that
+React can hydrate the static HTML asap:
+
+{/* Definitions */}
+
+[sc]: https://reactjs.org/server-components
+
+[xdm]: https://github.com/wooorm/xdm
+
+[gh]: https://github.com/wooorm/server-components-mdx-demo
+
+[patched]: https://github.com/wooorm/server-components-mdx-demo/blob/main/patches/react-server-dom-webpack+0.0.0-experimental-3310209d0.patch
+
+[register]: https://github.com/wooorm/xdm#requiring-mdx-files-directly
+
+[loader]: https://github.com/wooorm/xdm#importing-mdx-files-directly
+
+[webpack]: https://github.com/wooorm/xdm#webpack
+
+[node-loader]: https://github.com/wooorm/server-components-mdx-demo/blob/main/node-loader.config.js
+
+[phyllotaxis-wiki]: https://en.wikipedia.org/wiki/Phyllotaxis
+
+[scd]: https://github.com/reactjs/server-components-demo
+
+[content]: https://github.com/wooorm/server-components-mdx-demo/blob/main/src/content.server.mdx
+
+[counter]: https://github.com/wooorm/server-components-mdx-demo/blob/main/src/counter.client.js
+
+[phyllotaxis]: https://github.com/wooorm/server-components-mdx-demo/blob/main/src/phyllotaxis.server.js
+
+[wooorm]: http://github.com/wooorm
+
+[gaearon]: http://github.com/gaearon
