@@ -15,6 +15,10 @@ The source code is [on GitHub][gh].
 What you’re reading right now is <code>\<[Content][] \/\></code>, an MDX file as
 a component!
 
+> ⚠️ It’s going to take like at least a year for the stuff discussed and shown
+> here to become stable.\
+> This demo is showing cool stuff coming in the future, don’t depend on this!
+
 ## What?
 
 Server components can be boiled down to doing the work on a server and
@@ -73,8 +77,8 @@ them in a `node-loader.config.js` [like so][node-loader], and finally run your
 server with `--experimental-loader @node-loader/core`.
 
 Lastly, make sure webpack can bundle `.mdx` files.
-Add something along the lines of <code>\{test: /\\.mdx$/, use: '[xdm/webpack.cjs][webpack]'}</code> to
-`module.rules` in the webpack config.
+Add something along the lines of <code>\{test: /\\.mdx$/, use:
+'[xdm/webpack.cjs][webpack]'}</code> to `module.rules` in the webpack config.
 
 ## A few more things!
 
@@ -86,9 +90,9 @@ places.
 
 The client in React notes figures out what components and data it needs and
 then requests them from the server.
-This demo instead embeds the needed data into the HTML to save a roundtrip
-(it’s embedded as a compressed PNG 🤯 which would typically be hidden but
-it’s shown for fun at the bottom)!
+This demo instead embeds the needed data *into* the HTML to save a roundtrip
+(it’s embedded as a compressed, lazily loaded and decoded, PNG 🤯 which would
+typically be hidden but it’s shown for fun at the bottom)!
 
 React notes sends an empty HTML shell to the client, this demo instead renders
 the app and sends a full HTML page, which is then hydrated with that compressed
@@ -102,7 +106,8 @@ Finally, React notes is CJS whereas this is ESM.
 Server components are very much in the **danger zone**.
 They are not ready for adoption.
 You shouldn’t use this!
-This demo is also SSG and ESM only, making it all the more danger zone.
+Again: it’s going to take at least another year for things to become stable in
+this space.
 As for [`xdm`][xdm], that’s stable!
 
 ## Who?
@@ -112,9 +117,7 @@ Thanks to [**@gaearon**][gaearon] for the tips.
 
 Fork me on [GitHub][gh].
 
-P.S., here’s that image mentioned before.
-It’s *also* this whole page: it’s the app encoded as a compressed PNG so that
-React can hydrate the static HTML asap:
+P.S., here’s that image mentioned before!
 
 {/* Definitions */}
 

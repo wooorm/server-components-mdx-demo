@@ -11,6 +11,7 @@ export function Root(props) {
   )
 
   function Content() {
+    console.log('z1:0', response)
     var xxx = response.readRoot()
     console.log('z1:content', xxx)
     return xxx

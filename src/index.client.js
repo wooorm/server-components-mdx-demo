@@ -3,7 +3,7 @@ import {createFromFetch} from 'react-server-dom-webpack'
 import {png2bin} from 'png2bin'
 import {Root} from './root.client.js'
 
-window.addEventListener('DOMContentLoaded', main)
+window.addEventListener('load', main)
 
 async function main() {
   console.log('x1:')
