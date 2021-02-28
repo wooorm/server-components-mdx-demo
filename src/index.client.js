@@ -17,6 +17,5 @@ async function main() {
   console.log('x5:', root)
   var response = createFromFetch(fetch(url))
   console.log('x6:', response)
-
   root.render(<Root response={response} />)
 }
