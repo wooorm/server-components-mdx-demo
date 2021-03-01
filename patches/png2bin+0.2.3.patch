@@ -1,0 +1,18 @@
+diff --git a/node_modules/png2bin/png2bin.js b/node_modules/png2bin/png2bin.js
+index b4be423..945b55a 100644
+--- a/node_modules/png2bin/png2bin.js
++++ b/node_modules/png2bin/png2bin.js
+@@ -8,11 +8,12 @@ async function png2bin(imgEl) {
+     var document = getDocument(imgEl);
+     var canvas = document.createElement("canvas");
+     var img = await imgLoad(imgEl);
+-    canvas.width = img.width;
+-    canvas.height = img.height;
++    canvas.width = img.naturalWidth;
++    canvas.height = img.naturalHeight;
+     var ctx = canvas.getContext("2d");
+     ctx.drawImage(img, 0, 0);
+     var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+     for (var i = 0; i < data.length; i += 4) { // Remove alpha bytes
+         var j = (i / 4 | 0) * 3;
+         data.copyWithin(j, i, i + 3);
