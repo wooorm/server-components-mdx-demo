@@ -12,4 +12,7 @@ async function main() {
   var root = unstable_createRoot($root, {hydrate: Boolean($root.innerHTML)})
 
   root.render(<Root response={createFromFetch(fetch(url))} />)
+
+  // Show that image.
+  $payload.style = 'display:block'
 }

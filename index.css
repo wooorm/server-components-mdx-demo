@@ -335,9 +335,7 @@ canvas {
   inset: 0 !important;
 }
 
-/* Show the payload. */
 #payload {
-  display: block;
   margin: calc(1em + 1em) auto;
 }
 
