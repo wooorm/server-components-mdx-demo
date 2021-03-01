@@ -50,6 +50,14 @@ You can open your dev tools to see that only the `<Counter />` and the embedded
 `<Confetti />` are sent to clients (in `0.index.js`).
 The rest is compiled away.
 
+So how is this different from MDX, currently?
+Well: an `.mdx` file is treated like any other component right now.
+So sure, it can be rendered on the server, but then it can’t include interactive
+things (such as `<Counter />`).
+Or it can be rendered on the client, but then a lot of otherwise static things
+(`<Phyllotaxis />` and all these paragraphs) are rendered there, too.
+This is solved with RSC.
+
 ## Why?
 
 React server components run on the server and have zero impact on bundle size.
@@ -82,24 +90,46 @@ Add something along the lines of <code>\{test: /\\.mdx$/, use:
 
 ## A few more things!
 
-This demo show RSC + MDX but there’s more too it.
+> 💁‍♀️ This section walks through some things I added which are currently complex
+> to solve with RSC.
+> The wiring I’m doing here is supposed to be **much easier** when RSC ships,
+> and/or **handled for you** by something like Next.
 
-[React notes][scd] requires a whole server, whereas this demo is generated
-in a build step, so that it can be deployed to any static hosting service, such
-as GitHub pages, Netlify, or other places.
-
-The client in React notes figures out what components and data it needs and
-then requests them from the server.
-This demo instead embeds the needed data *into* the HTML to save a roundtrip
-(it’s embedded as a compressed, lazily loaded and decoded, PNG 🤯 which would
-typically be hidden but it’s shown for fun at the bottom)!
-
-React notes sends an empty HTML shell to the client, this demo instead renders
-the app and sends a full HTML page, which is then hydrated with that compressed
-app-as-a-PNG, so that users (even those without JavaScript on) can immediately
+The [React notes][scd] demo by the React team sends an empty HTML shell to the
+client, just like a client-only app.
+The intended solution (which isn’t built out yet) is to send rendered HTML,
+which is then hydrated by the client.
+This demo shows that that can work: this page is rendered on the server and
+later hydrated, so that users (even those without JavaScript on) can immediately
 start reading. 🕚 ⬅️ 🚙 💨
 
-Finally, React notes is CJS whereas this is ESM.
+The first thing the client in React notes does is ask the server: “hey, what
+data and components do I need to render this page?”
+The server responds by streaming the needed data and URLs for the needed
+components.
+Can that first network request be removed?
+So I tried embedded that first response *into* the HTML to save a roundtrip.
+One idea on how to do it, is to embed the payload in a
+`<script type=text> … </script>`.
+It’s a pretty good idea but there’s a big catch: you can’t include the
+characters `</script>` inside a script.
+Character references (`&lt;`) don’t work in them either.
+So that didn’t work.
+Instead, this demo embeds the payload at the bottom of the page in hidden PNG
+image (🤯).
+Using a PNG compresses a bit worse than a `<script>` but both are otherwise just
+as fast.
+See the [`bin2png` and `png2bin`][bin] repo for more about the method.
+
+This payload to hydrate the page currently contains the whole page.
+In a perfect world that wouldn’t be necessary because we’ve already rendered it
+on the server and most of the data isn’t needed because a lot here is static.
+Sending *only* what’s needed for faster and smaller hydration, is another thing
+the React team is planning on solving before RSC ship.
+
+Finally, this demo is a static site, rendered in a build step, so that it can be
+deployed to any static hosting service (GH pages, Netlify, etc).
+And this demo is 100% ESM.
 
 ## When?
 
@@ -110,6 +140,17 @@ Again: it’s going to take at least another year for things to become stable in
 this space.
 As for [`xdm`][xdm], that’s stable!
 
+## Recap
+
+*   React server components are experimental, it’s not shipping soon
+*   MDX works fine with RSC, it’s transformed on the server
+*   The wiring I had to do for this demo will be done for you by tools
+*   Server side rendering works, HTML is sent to the client
+*   The hydration payload is sent in a non-blocking way *with* the HTML
+*   Static site generation works too, the site can be compiled in a build step
+*   ESM are getting ready
+*   100% on Lighthouse!
+
 ## Who?
 
 Hacked together by [**@wooorm**][wooorm].
@@ -117,7 +158,7 @@ Thanks to [**@gaearon**][gaearon] for the tips.
 
 Fork me on [GitHub][gh].
 
-P.S., here’s that image mentioned before!
+P.S., here’s that image mentioned before, the data used to hydrate this page:
 
 {/* Definitions */}
 
@@ -127,7 +168,7 @@ P.S., here’s that image mentioned before!
 
 [gh]: https://github.com/wooorm/server-components-mdx-demo
 
-[patched]: https://github.com/wooorm/server-components-mdx-demo/blob/main/patches/react-server-dom-webpack+0.0.0-experimental-3310209d0.patch
+[patched]: https://github.com/wooorm/server-components-mdx-demo/blob/main/patches/react-server-dom-webpack+0.0.0-experimental-0cf9fc10b.patch
 
 [register]: https://github.com/wooorm/xdm#requiring-mdx-files-directly
 
@@ -138,6 +179,8 @@ P.S., here’s that image mentioned before!
 [node-loader]: https://github.com/wooorm/server-components-mdx-demo/blob/main/node-loader.config.js
 
 [phyllotaxis-wiki]: https://en.wikipedia.org/wiki/Phyllotaxis
+
+[bin]: https://github.com/lovasoa/bin2png
 
 [scd]: https://github.com/reactjs/server-components-demo
 
