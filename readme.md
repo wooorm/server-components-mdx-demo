@@ -13,7 +13,13 @@ npm i --legacy-peer-deps
 npm run build
 ```
 
+## Run
+
 Then start an HTTP server in `build/`.
+
+```sh
+npx serve build/
+```
 
 ## License
 
