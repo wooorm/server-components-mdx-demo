@@ -16,7 +16,7 @@ async function main() {
   var b64 = Buffer.from(await bin2png(buf)).toString('base64')
   var ignore = new Set(['index.client.js', 'root.client.js'])
 
-  // We have to fake webpack for SSG.
+  // We have to fake webpack for SSR.
   // Luckily only a few parts of its API need to be faked.
   var cache = {}
   global.__webpack_require__ = (id) => cache[id]
@@ -47,7 +47,7 @@ async function main() {
     }
   })
 
-  // Finally, actually perform the SSG, retrying if there is anything suspended.
+  // Finally, actually perform the SSR, retrying if there is anything suspended.
   var result
 
   /* eslint-disable no-constant-condition, no-await-in-loop */
