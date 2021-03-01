@@ -227,6 +227,11 @@ blockquote::before {
   left: 0;
 }
 
+ol,
+ul {
+  padding-left: 0;
+}
+
 ul ul,
 ol ul,
 ul ol,
@@ -416,5 +421,25 @@ canvas {
 @media (min-width: 40em) {
   html {
     font-size: 1.125em;
+  }
+}
+
+@media (min-width: 64em) {
+  blockquote,
+  ol,
+  ul {
+    margin-left: calc(-1 * (1em + 1ex));
+  }
+
+  ol blockquote,
+  ul blockquote,
+  blockquote blockquote,
+  ol ol,
+  ul ol,
+  blockquote ol,
+  ol ul,
+  ul ul,
+  blockquote ul {
+    margin-left: 0;
   }
 }
