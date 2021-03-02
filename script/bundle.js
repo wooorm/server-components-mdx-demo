@@ -9,6 +9,7 @@ var production = process.env.NODE_ENV === 'production'
 
 fs.mkdirSync('build', {recursive: true})
 fs.copyFileSync('index.css', 'build/index.css')
+fs.copyFileSync('og.png', 'build/og.png')
 
 webpack(
   {

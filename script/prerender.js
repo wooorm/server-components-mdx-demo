@@ -77,11 +77,14 @@ async function main() {
 <meta content=https://wooorm.com/server-components-mdx-demo/ property=og:url>
 <meta content="React server components + MDX" property=og:title>
 <meta content="small demo showing that RSC + MDX work together" property=og:description>
+<meta content=https://wooorm.com/server-components-mdx-demo/og.png property=og:image>
 <meta content=2021-03-01T00:00:00.000Z property=article:published_time>
 <meta content=2021-03-01T00:00:00.000Z property=article:modified_time>
 <meta content=mdx property=article:tag>
 <meta content=rsc property=article:tag>
 <meta content=react property=article:tag>
+<meta content=summary_large_image name=twitter:card>
+<meta content=https://wooorm.com/server-components-mdx-demo/og.png name=twitter:image>
 <meta content=@wooorm name=twitter:site>
 <meta content=@wooorm name=twitter:creator>
 <link href=data:image/x-icon;, rel="icon shortcut" type=image/x-icon>
