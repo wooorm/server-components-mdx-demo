@@ -6,10 +6,10 @@ import {Root} from './root.client.js'
 window.addEventListener('DOMContentLoaded', main)
 
 async function main() {
-  var $root = document.querySelector('#root')
-  var $payload = document.querySelector('#payload')
-  var url = URL.createObjectURL(new Blob([await png2bin($payload)]))
-  var root = unstable_createRoot($root, {hydrate: Boolean($root.innerHTML)})
+  const $root = document.querySelector('#root')
+  const $payload = document.querySelector('#payload')
+  const url = URL.createObjectURL(new Blob([await png2bin($payload)]))
+  const root = unstable_createRoot($root, {hydrate: Boolean($root.innerHTML)})
 
   root.render(<Root response={createFromFetch(fetch(url))} />)
 

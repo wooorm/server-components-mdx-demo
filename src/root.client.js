@@ -1,7 +1,7 @@
 import {Suspense} from 'react'
 
 export function Root(props) {
-  var {response} = props
+  const {response} = props
 
   return (
     <Suspense fallback={null}>

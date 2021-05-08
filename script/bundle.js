@@ -5,7 +5,7 @@ import path from 'path'
 import webpack from 'webpack'
 import ReactServerWebpackPlugin from 'react-server-dom-webpack/plugin'
 
-var production = process.env.NODE_ENV === 'production'
+const production = process.env.NODE_ENV === 'production'
 
 fs.mkdirSync('build', {recursive: true})
 fs.copyFileSync('index.css', 'build/index.css')
@@ -37,7 +37,7 @@ webpack(
 )
 
 function onbundle(error, stats) {
-  var info = stats && stats.toJson()
+  const info = stats && stats.toJson()
 
   if (error) throw error
 

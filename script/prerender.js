@@ -11,14 +11,14 @@ import {Root} from '../src/root.client.js'
 main()
 
 async function main() {
-  var buf = await fs.readFile('build/content.nljson')
-  var data = JSON.parse(await fs.readFile('build/react-client-manifest.json'))
-  var b64 = Buffer.from(await bin2png(buf)).toString('base64')
-  var ignore = new Set(['index.client.js', 'root.client.js'])
+  const buf = await fs.readFile('build/content.nljson')
+  const data = JSON.parse(await fs.readFile('build/react-client-manifest.json'))
+  const b64 = Buffer.from(await bin2png(buf)).toString('base64')
+  const ignore = new Set(['index.client.js', 'root.client.js'])
 
   // We have to fake webpack for SSR.
   // Luckily only a few parts of its API need to be faked.
-  var cache = {}
+  const cache = {}
   global.__webpack_require__ = (id) => cache[id]
   global.__webpack_chunk_load__ = () => Promise.resolve()
 
@@ -33,10 +33,10 @@ async function main() {
   )
 
   // Create a browser stream that RSC needs for getting it’s content.
-  var response = createFromReadableStream({
+  const response = createFromReadableStream({
     getReader() {
-      var enc = new TextEncoder()
-      var done
+      const enc = new TextEncoder()
+      let done
       return {
         read() {
           if (done) return Promise.resolve({done})
@@ -48,7 +48,7 @@ async function main() {
   })
 
   // Finally, actually perform the SSR, retrying if there is anything suspended.
-  var result
+  let result
 
   /* eslint-disable no-constant-condition, no-await-in-loop */
   while (true) {

@@ -1,12 +1,12 @@
 import React from 'react'
 import Confetti from 'react-confetti'
 
-var {useState} = React
+const {useState} = React
 
 export function Counter() {
-  var [coords, setCoords] = useState(undefined)
-  var [pieces, setPieces] = useState(0)
-  var [count, setCount] = useState(0)
+  const [coords, setCoords] = useState(undefined)
+  const [pieces, setPieces] = useState(0)
+  const [count, setCount] = useState(0)
 
   return (
     <>

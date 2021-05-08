@@ -1,7 +1,7 @@
-var theta = Math.PI * (3 - Math.sqrt(6))
+const theta = Math.PI * (3 - Math.sqrt(6))
 
 export function Phyllotaxis(props) {
-  var {size, step, length, radius} = props
+  const {size, step, length, radius} = props
 
   return (
     <svg
@@ -16,8 +16,8 @@ export function Phyllotaxis(props) {
       }}
     >
       {Array.from({length}).map((_, index) => {
-        var r = step * Math.sqrt((index += 0.5))
-        var a = theta * index
+        const r = step * Math.sqrt((index += 0.5))
+        const a = theta * index
         return (
           <circle
             // eslint-disable-next-line react/no-array-index-key

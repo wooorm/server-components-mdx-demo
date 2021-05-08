@@ -42,11 +42,11 @@
     "xdm": "^1.0.0"
   },
   "devDependencies": {
-    "eslint-config-xo-react": "^0.24.0",
+    "eslint-config-xo-react": "^0.25.0",
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "prettier": "^2.0.0",
-    "xo": "^0.38.0"
+    "xo": "^0.39.0"
   },
   "scripts": {
     "postinstall": "patch-package",
@@ -74,11 +74,7 @@
     "prettier": true,
     "rules": {
       "camelcase": "off",
-      "import/no-anonymous-default-export": "off",
-      "no-var": "off",
       "node/file-extension-in-import": "off",
-      "prefer-arrow-callback": "off",
-      "prefer-const": "off",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "react/function-component-definition": [
