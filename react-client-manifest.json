@@ -1,0 +1,64 @@
+{
+  "file:///home/runner/work/server-components-mdx-demo/server-components-mdx-demo/src/root.client.js": {
+    "": {
+      "id": 3,
+      "chunks": [
+        1
+      ],
+      "name": ""
+    },
+    "*": {
+      "id": 3,
+      "chunks": [
+        1
+      ],
+      "name": "*"
+    },
+    "Root": {
+      "id": 3,
+      "chunks": [
+        1
+      ],
+      "name": "Root"
+    }
+  },
+  "file:///home/runner/work/server-components-mdx-demo/server-components-mdx-demo/src/index.client.js": {
+    "": {
+      "id": 4,
+      "chunks": [
+        1
+      ],
+      "name": ""
+    },
+    "*": {
+      "id": 4,
+      "chunks": [
+        1
+      ],
+      "name": "*"
+    }
+  },
+  "file:///home/runner/work/server-components-mdx-demo/server-components-mdx-demo/src/counter.client.js": {
+    "": {
+      "id": 17,
+      "chunks": [
+        0
+      ],
+      "name": ""
+    },
+    "*": {
+      "id": 17,
+      "chunks": [
+        0
+      ],
+      "name": "*"
+    },
+    "Counter": {
+      "id": 17,
+      "chunks": [
+        0
+      ],
+      "name": "Counter"
+    }
+  }
+}
