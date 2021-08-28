@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import fs from 'fs'
-import url from 'url'
-import path from 'path'
+import fs from 'node:fs'
+import url from 'node:url'
+import path from 'node:path'
+import process from 'node:process'
 import webpack from 'webpack'
 import ReactServerWebpackPlugin from 'react-server-dom-webpack/plugin'
 

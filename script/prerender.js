@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import path from 'path'
-import url from 'url'
-import {promises as fs} from 'fs'
+import {Buffer} from 'node:buffer'
+import {promises as fs} from 'node:fs'
+import path from 'node:path'
+import url from 'node:url'
 import React from 'react'
 import {renderToString} from 'react-dom/server.js'
 import {createFromReadableStream} from 'react-server-dom-webpack'

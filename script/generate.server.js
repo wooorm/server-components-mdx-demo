@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import fs from 'fs'
+import fs from 'node:fs'
+import process from 'node:process'
 import React from 'react'
 import {pipeToNodeWritable} from 'react-server-dom-webpack/writer'
 import Content from '../src/content.server.mdx'

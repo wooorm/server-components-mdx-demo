@@ -46,7 +46,7 @@
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "prettier": "^2.0.0",
-    "xo": "^0.39.0"
+    "xo": "^0.44.0"
   },
   "scripts": {
     "postinstall": "patch-package",
